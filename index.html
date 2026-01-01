@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Queue Management System</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+  <div class="dashboard">
+
+    <!-- LEFT PANEL -->
+    <div class="panel">
+      <h1>Queue System</h1>
+      <div class="subtitle">Professional Queue Manager</div>
+
+      <div class="stack">
+        <input id="pName" placeholder="Person Name">
+        <input id="pService" placeholder="Service / Reason">
+
+        <select id="pPriority">
+          <option value="Normal">Normal</option>
+          <option value="Priority">Priority</option>
+        </select>
+
+        <button class="primary" onclick="addToken()">Add Token</button>
+      </div>
+
+      <div class="current">
+        Currently Serving
+        <span id="currentText">None</span>
+      </div>
+
+      <div class="row">
+        <button class="primary" onclick="nextToken()">Next</button>
+        <button class="secondary" onclick="skipToken()">Skip</button>
+        <button class="danger" onclick="resetQueue()">Reset</button>
+      </div>
+
+      <div class="row export-row">
+        <button class="secondary" onclick="exportCSV()">Export CSV</button>
+        <button class="secondary" onclick="exportPDF()">Export PDF</button>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="list">
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Name</th>
+              <th>Service</th>
+              <th>Priority</th>
+              <th>Arrival Date</th>
+              <th>Arrival Time</th>
+              <th>Waited</th>
+              <th>Estimated</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="table"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<audio id="beep">
+  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg">
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>
