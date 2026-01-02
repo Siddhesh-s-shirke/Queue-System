@@ -14,7 +14,7 @@
     <!-- LEFT PANEL -->
     <div class="panel">
       <h1>Queue System</h1>
-      <div class="subtitle">Professional Queue Manager</div>
+      <div class="subtitle">MSBTE Mini Project</div>
 
       <div class="stack">
         <input id="pName" placeholder="Person Name">
@@ -39,6 +39,9 @@
         <button class="danger" onclick="resetQueue()">Reset</button>
       </div>
 
+      <!-- SEARCH -->
+      <input id="search" placeholder="Search by name or token" onkeyup="render()">
+
       <div class="row export-row">
         <button class="secondary" onclick="exportCSV()">Export CSV</button>
         <button class="secondary" onclick="exportPDF()">Export PDF</button>
@@ -55,8 +58,8 @@
               <th>Name</th>
               <th>Service</th>
               <th>Priority</th>
-              <th>Arrival Date</th>
-              <th>Arrival Time</th>
+              <th>Date</th>
+              <th>Time</th>
               <th>Waited</th>
               <th>Estimated</th>
               <th>Status</th>
@@ -69,10 +72,6 @@
 
   </div>
 </div>
-
-<audio id="beep">
-  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg">
-</audio>
 
 <script src="script.js"></script>
 </body>
