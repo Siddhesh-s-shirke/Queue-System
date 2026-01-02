@@ -1,5 +1,4 @@
 const AVG_SERVICE_MIN = 3;
-
 let queue = [];
 let current = -1;
 
@@ -16,26 +15,21 @@ function addToken(){
   finalWait:null,
   status:"Waiting"
  });
-
  pName.value=pService.value="";
  render();
 }
 
 function nextToken(){
  if(current>=0 && queue[current]){
-  queue[current].finalWait = Date.now()-queue[current].arrival;
+  queue[current].finalWait=Date.now()-queue[current].arrival;
   queue[current].status="Done";
  }
-
- let next = queue.findIndex(q=>q.status==="Waiting" && q.priority==="Priority");
- if(next===-1) next = queue.findIndex(q=>q.status==="Waiting");
-
+ let next=queue.findIndex(q=>q.status==="Waiting"&&q.priority==="Priority");
+ if(next===-1) next=queue.findIndex(q=>q.status==="Waiting");
  if(next!==-1){
   current=next;
   queue[current].status="Serving";
-  document.getElementById("beep").play();
  }
-
  render();
 }
 
@@ -60,7 +54,7 @@ function estimated(i){
 }
 
 function exportCSV(){
- let csv="Token,Name,Service,Priority,Arrival Date,Arrival Time,Waited,Estimated,Status\n";
+ let csv="Token,Name,Service,Priority,Date,Time,Waited,Estimated,Status\n";
  queue.forEach((q,i)=>{
   let d=new Date(q.arrival);
   let waited=q.status==="Done"?format(q.finalWait):format(Date.now()-q.arrival);
@@ -78,20 +72,25 @@ function exportPDF(){
 
 function render(){
  table.innerHTML="";
- queue.forEach((q,i)=>{
-  let d=new Date(q.arrival);
-  let waited=q.status==="Done"?format(q.finalWait):format(Date.now()-q.arrival);
+ let q=search.value.toLowerCase();
+
+ queue.forEach((x,i)=>{
+  if(q && !(x.name.toLowerCase().includes(q) || String(x.token).includes(q))) return;
+
+  let d=new Date(x.arrival);
+  let waited=x.status==="Done"?format(x.finalWait):format(Date.now()-x.arrival);
+
   table.innerHTML+=`
    <tr>
-    <td>${q.token}</td>
-    <td>${q.name}</td>
-    <td>${q.service}</td>
-    <td class="${q.priority==="Priority"?"priority":""}">${q.priority}</td>
+    <td>${x.token}</td>
+    <td>${x.name}</td>
+    <td>${x.service}</td>
+    <td class="${x.priority==="Priority"?"priority":""}">${x.priority}</td>
     <td>${d.toLocaleDateString()}</td>
     <td>${d.toLocaleTimeString()}</td>
     <td>${waited}</td>
     <td>${estimated(i)}</td>
-    <td class="status-${q.status.toLowerCase()}">${q.status}</td>
+    <td class="status-${x.status.toLowerCase()}">${x.status}</td>
    </tr>`;
  });
 
